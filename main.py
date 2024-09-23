@@ -14,6 +14,11 @@ def main():
 
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
+    updatable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
+
+    Player.containers = (updatable, drawable)
+
     player = Player(x = SCREEN_WIDTH / 2, y = SCREEN_HEIGHT / 2)
 
     ### Game Loop Starts
@@ -24,9 +29,12 @@ def main():
         
         screen.fill((0,0,0))
 
-        player.draw(screen)
-        player.update(dt)
-        
+        for u in updatable:
+            u.update(dt)
+
+        for d in drawable:
+            d.draw(screen)
+
         pygame.display.flip()
         
         
